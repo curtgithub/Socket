@@ -21,13 +21,13 @@ public class SocketJClient {
 
       String serverName = "localhost";
       int port = 8080;
-      Socket server = null;
+      Socket socket = null;
 
       String msg = "Connecting to " + serverName + " on port " + port;
       logger.log(Level.INFO, msg);
 
       try {
-         server = new Socket(serverName, port);
+         socket = new Socket(serverName, port);
       } catch (IOException ex) {
          msg = "Server is not running!";
          logger.log(Level.SEVERE, msg);
@@ -39,14 +39,14 @@ public class SocketJClient {
 
       try {
 
-         msg = "Connected to server: " + server.getRemoteSocketAddress();
+         msg = "Connected to server: " + socket.getRemoteSocketAddress();
          logger.log(Level.INFO, msg);
-         msg = "Server = " + server.toString();
+         msg = "Server = " + socket.toString();
          logger.log(Level.INFO, msg);
 
-         InputStream inFromServer = server.getInputStream();
+         InputStream inFromServer = socket.getInputStream();
          DataInputStream in = new DataInputStream(inFromServer);
-         OutputStream outToServer = server.getOutputStream();
+         OutputStream outToServer = socket.getOutputStream();
          DataOutputStream out = new DataOutputStream(outToServer);
 
          for (int i = 0; i < 10; i++) {
@@ -67,7 +67,7 @@ public class SocketJClient {
 
          }
 
-         server.close();
+         socket.close();
       } catch (IOException ex) {
          Logger.getLogger(SocketJClient.class.getName()).log(Level.SEVERE, null, ex);
       }
